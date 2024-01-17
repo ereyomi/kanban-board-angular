@@ -1,0 +1,154 @@
+<div class="fixed inset-0 z-30 bg-gray-50 bg-opacity-5 backdrop-blur"></div>
+
+<div
+  class="fixed inset-0 z-40 overflow-y-auto flex justify-center items-center"
+>
+  <div
+    class="bg-white w-[500px] h-auto rounded-xl border border-solid border-gray-200 p-6"
+  >
+    <h2 class="text-slate-900 text-xl font-extrabold mb-6">Add Task</h2>
+    <div class="w-full flex flex-col gap-6">
+      <div class="w-full">
+        <label
+          for="title"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >Title</label
+        >
+        <div class="w-full mt-2">
+          <input
+            type="text"
+            name="title"
+            id="title"
+            placeholder="e.g take coffee break"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          />
+        </div>
+      </div>
+      <div class="w-full">
+        <label
+          for="about"
+          class="block text-sm font-medium leading-6 text-gray-900"
+          >About</label
+        >
+        <div class="w-full mt-2">
+          <textarea
+            id="about"
+            name="about"
+            rows="3"
+            placeholder="e.g it's always good to take a break. this 15 minutes break will recharge the battery"
+            class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+          ></textarea>
+        </div>
+      </div>
+      <div class="w-full">
+        <div class="w-full flex flex-row items-center gap-3">
+          <label
+            for="title"
+            class="block text-sm font-medium leading-6 text-gray-900"
+            >SubTasks</label
+          >
+          <button
+            type="button"
+            class="p-2 rounded-xl text-sm flex items-center gap-2 cursor-pointer hover:bg-gray-300 hover:shadow-sm transition-all duration-200"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
+            </svg>
+            <span class="text-sm">Add sub task</span>
+          </button>
+        </div>
+        <div class="w-full flex flex-col gap-4 mt-2">
+          <div class="w-full flex flex-row items-center gap-4">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="e.g take coffee break"
+              class="block flex-1 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            <button
+              type="button"
+              class="w-[40px] h-[40px] rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-[25px] h-[25px] flex-shrink-0"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+          <div class="w-full flex flex-row items-center gap-4">
+            <input
+              type="text"
+              name="title"
+              id="title"
+              placeholder="e.g take coffee break"
+              class="block flex-1 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+            />
+            <button
+              type="button"
+              class="w-[40px] h-[40px] rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-[25px] h-[25px] flex-shrink-0"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18 18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="w-full">
+        <label
+          for="title"
+          class="block text-sm font-medium leading-6 text-gray-900 mb-2"
+          >Status</label
+        >
+        <app-dropdown></app-dropdown>
+      </div>
+      <div class="w-full flex justify-end items-center gap-6">
+        <button
+          type="button"
+          class="px-5 py-3 h-[50px] bg-red-400 text-white rounded-md text-sm cursor-pointer hover:bg-red-400"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="px-5 py-3 h-[50px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-500"
+        >
+          Create Task
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
