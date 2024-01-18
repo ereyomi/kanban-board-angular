@@ -10,5 +10,12 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent {
+  openAddTaskModal = false;
 
+  openModal() {
+    this.openAddTaskModal = true;
+  }
+  closeModal() {
+    this.openAddTaskModal = false;
+  }
 }

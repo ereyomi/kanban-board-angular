@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 
 @Component({
@@ -6,8 +6,12 @@ import { DropdownComponent } from '../dropdown/dropdown.component';
   standalone: true,
   imports: [DropdownComponent],
   templateUrl: './add-task-modal.component.html',
-  styleUrl: './add-task-modal.component.scss'
+  styleUrl: './add-task-modal.component.scss',
 })
 export class AddTaskModalComponent {
+  @Output() closeEvent: EventEmitter<void> = new EventEmitter();
 
+  closeModal() {
+    this.closeEvent.emit();
+  }
 }

@@ -7,8 +7,15 @@ import { TaskColumnModalComponent } from '../shared/ui/task-column-modal/task-co
   standalone: true,
   imports: [TaskListComponent, TaskColumnModalComponent],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styleUrl: './main.component.scss',
 })
 export class MainComponent {
+  openAddColumnModal = false;
 
+  openColumnModal() {
+    this.openAddColumnModal = true;
+  }
+  closeColumnModal() {
+    this.openAddColumnModal = false;
+  }
 }

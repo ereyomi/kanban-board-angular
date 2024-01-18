@@ -4,6 +4,7 @@
     <button
       type="button"
       class="px-5 py-3 bg-violet-600 text-white rounded-md text-sm flex items-center gap-2 cursor-pointer hover:bg-violet-500"
+      (click)="openColumnModal()"
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -34,4 +35,6 @@
   </div>
 </div>
 
-<!-- <app-task-column-modal></app-task-column-modal> -->
+@if(openAddColumnModal) {
+<app-task-column-modal (closeEvent)="closeColumnModal()"></app-task-column-modal>
+}
