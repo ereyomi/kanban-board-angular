@@ -5,3 +5,9 @@ export type TaskT = {
   subTasks: string[];
   status: string;
 };
+
+export type TaskStoreT = {
+  id: string;
+  label: string;
+  tasks: TaskT[];
+};
