@@ -15,9 +15,20 @@
         name="task-column-input"
         id="task-column-input"
         placeholder="e.g In Progress"
+        [formControl]="componentForm"
         class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+        [ngClass]="{
+          '!border !border-solid !border-red-700 placeholder:!text-red-700':
+            componentForm.touched && componentForm.invalid
+        }"
       />
     </div>
+    @if(componentForm.touched && componentForm.invalid){
+    <p class="text-red-700 text-sm">
+      Hello... Please type something. I am begging else...
+    </p>
+    }
+
     <div class="w-full flex justify-end items-center gap-6 mt-6">
       <button
         type="button"
@@ -28,7 +39,9 @@
       </button>
       <button
         type="button"
-        class="px-5 py-3 h-[50px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-500"
+        class="px-5 py-3 h-[50px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-700 disabled:bg-violet-200"
+        [disabled]="componentForm.invalid"
+        (click)="addTaskColumn()"
       >
         Add
       </button>
