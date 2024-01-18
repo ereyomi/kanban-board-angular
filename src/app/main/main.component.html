@@ -35,6 +35,6 @@
   </div>
 </div>
 
-@if(openAddColumnModal) {
+@if(openAddColumnModal()) {
 <app-task-column-modal (closeEvent)="closeColumnModal()"></app-task-column-modal>
 }

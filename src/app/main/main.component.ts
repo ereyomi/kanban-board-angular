@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TaskListComponent } from '../core/components/task-list/task-list.component';
 import { TaskColumnModalComponent } from '../core/components/task-column-modal/task-column-modal.component';
 
@@ -10,12 +10,12 @@ import { TaskColumnModalComponent } from '../core/components/task-column-modal/t
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  openAddColumnModal = false;
+  openAddColumnModal = signal<boolean>(false);
 
   openColumnModal() {
-    this.openAddColumnModal = true;
+    this.openAddColumnModal.set(true);
   }
   closeColumnModal() {
-    this.openAddColumnModal = false;
+    this.openAddColumnModal.set(false);
   }
 }
