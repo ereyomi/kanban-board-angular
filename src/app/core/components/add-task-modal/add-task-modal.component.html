@@ -3,8 +3,9 @@
 <div
   class="fixed inset-0 z-40 overflow-y-auto flex justify-center items-center"
 >
-  <div
+  <form
     class="bg-white w-[500px] h-auto rounded-xl border border-solid border-gray-200 p-6"
+    [formGroup]="taskFormGroup"
   >
     <h2 class="text-slate-900 text-xl font-extrabold mb-6">Add Task</h2>
     <div class="w-full flex flex-col gap-6">
@@ -19,6 +20,7 @@
             type="text"
             name="title"
             id="title"
+            formControlName="title"
             placeholder="e.g take coffee break"
             class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           />
@@ -35,6 +37,7 @@
             id="about"
             name="about"
             rows="3"
+            formControlName="about"
             placeholder="e.g it's always good to take a break. this 15 minutes break will recharge the battery"
             class="block w-full rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           ></textarea>
@@ -49,6 +52,7 @@
           >
           <button
             type="button"
+            (click)="addSubTaskFormControl()"
             class="p-2 rounded-xl text-sm flex items-center gap-2 cursor-pointer hover:bg-gray-300 hover:shadow-sm transition-all duration-200"
           >
             <svg
@@ -68,7 +72,9 @@
             <span class="text-sm">Add sub task</span>
           </button>
         </div>
-        <div class="w-full flex flex-col gap-4 mt-2">
+        <div class="w-full flex flex-col gap-4 mt-2" formArrayName="subTasks">
+          @for (subTask of taskFormGroup.controls.subTasks.controls; track
+          subTask; let idx = $index){
           <div class="w-full flex flex-row items-center gap-4">
             <input
               type="text"
@@ -76,9 +82,11 @@
               id="title"
               placeholder="e.g take coffee break"
               class="block flex-1 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              [formControlName]="idx"
             />
             <button
               type="button"
+              (click)="deleteASubTaskForm(idx)"
               class="w-[40px] h-[40px] rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
             >
               <svg
@@ -97,34 +105,7 @@
               </svg>
             </button>
           </div>
-          <div class="w-full flex flex-row items-center gap-4">
-            <input
-              type="text"
-              name="title"
-              id="title"
-              placeholder="e.g take coffee break"
-              class="block flex-1 rounded-md border-0 p-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-            />
-            <button
-              type="button"
-              class="w-[40px] h-[40px] rounded-full flex items-center justify-center hover:bg-gray-200 cursor-pointer"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-[25px] h-[25px] flex-shrink-0"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M6 18 18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          </div>
+          }
         </div>
       </div>
       <div class="w-full">
@@ -151,5 +132,5 @@
         </button>
       </div>
     </div>
-  </div>
+  </form>
 </div>

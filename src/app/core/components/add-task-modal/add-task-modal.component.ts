@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import {
+  FormArray,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -10,11 +15,25 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrl: './add-task-modal.component.scss',
 })
 export class AddTaskModalComponent {
-
-  
-
   @Output() closeEvent: EventEmitter<void> = new EventEmitter();
+
+  taskFormGroup = new FormGroup({
+    title: new FormControl<string>('', { nonNullable: true }),
+    about: new FormControl<string>('', { nonNullable: true }),
+    subTasks: new FormArray<FormControl<string>>([]),
+    status: new FormControl<string>('', { nonNullable: true }),
+  });
+
   closeModal() {
     this.closeEvent.emit();
+  }
+
+  addSubTaskFormControl() {
+    const control = new FormControl<string>('', { nonNullable: true });
+    this.taskFormGroup.controls.subTasks.push(control);
+  }
+
+  deleteASubTaskForm(index: number) {
+    this.taskFormGroup.controls.subTasks.removeAt(index);
   }
 }

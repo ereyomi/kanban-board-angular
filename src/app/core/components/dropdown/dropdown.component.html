@@ -38,43 +38,39 @@
     class="w-full absolute right-0 z-10 mt-2 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
     [ngClass]="[openDropDown() ? 'block' : 'hidden']"
   >
-    <div class="py-1 divide-y divide-gray-100" role="none">
+    <div
+      class="py-1 divide-y divide-gray-100"
+      role="none"
+      (click)="toggleDropDown()"
+    >
       <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-      <a
+      <div
         href="#"
         class="text-gray-700 block px-4 py-2 text-sm"
         role="menuitem"
         tabindex="-1"
         id="menu-item-0"
-        >Todo</a
       >
-      <a
+        Todo
+      </div>
+      <div
         href="#"
         class="text-gray-700 block px-4 py-2 text-sm"
         role="menuitem"
         tabindex="-1"
         id="menu-item-1"
-        >In progress</a
       >
-      <a
+        In progress
+      </div>
+      <div
         href="#"
         class="text-gray-700 block px-4 py-2 text-sm"
         role="menuitem"
         tabindex="-1"
         id="menu-item-2"
-        >Done</a
       >
-      <form method="POST" action="#" role="none">
-        <button
-          type="submit"
-          class="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-          role="menuitem"
-          tabindex="-1"
-          id="menu-item-3"
-        >
-          UAT
-        </button>
-      </form>
+        Done
+      </div>
     </div>
   </div>
 </div>

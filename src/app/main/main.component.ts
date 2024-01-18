@@ -14,9 +14,10 @@ export class MainComponent {
   private appServiceStore = inject(AppStoreService);
 
   constructor() {
-    effect(() => {
-      console.log('store', this.appServiceStore.store());
-    });
+    /* effect(() => {
+      // console.log('store', this.appServiceStore.store());
+      console.log('here');
+    }); */
   }
 
   openAddColumnModal = signal<boolean>(false);
