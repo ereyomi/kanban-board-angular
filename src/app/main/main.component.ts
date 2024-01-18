@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { TaskListComponent } from '../core/components/task-list/task-list.component';
 import { TaskColumnModalComponent } from '../core/components/task-column-modal/task-column-modal.component';
+import { AppStoreService } from '../core/services/appStore.service';
 
 @Component({
   selector: 'app-main',
@@ -10,6 +11,14 @@ import { TaskColumnModalComponent } from '../core/components/task-column-modal/t
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
+  private appServiceStore = inject(AppStoreService);
+
+  constructor() {
+    effect(() => {
+      console.log('store', this.appServiceStore.store());
+    });
+  }
+
   openAddColumnModal = signal<boolean>(false);
 
   openColumnModal() {

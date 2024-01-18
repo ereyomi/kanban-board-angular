@@ -3,7 +3,7 @@ import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BadWordsValidator } from '../../Validator/bad-words';
 import { ForbiddenCharactersValidator } from '../../Validator/forbidden';
-import { AppService } from '../../services/app.service';
+import { AppStoreService } from '../../services/appStore.service';
 @Component({
   selector: 'app-task-column-modal',
   standalone: true,
@@ -14,7 +14,7 @@ import { AppService } from '../../services/app.service';
 export class TaskColumnModalComponent {
   @Output() closeEvent: EventEmitter<void> = new EventEmitter();
 
-  private appServiceStore = inject(AppService);
+  private appServiceStore = inject(AppStoreService);
 
   componentForm = new FormControl<string>('', {
     nonNullable: true,
