@@ -9,7 +9,7 @@
       <span
         class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
         >{{ taskColumn.tasks.length }}
-        {{ taskColumn.tasks.length > 1 ? "task" : "tasks" }}</span
+        {{ taskColumn.tasks.length < 2 ? "task" : "tasks" }}</span
       >
     </div>
 
@@ -36,12 +36,15 @@
     </button>
   </div>
   <div class="w-full py-3 flex flex-col gap-2">
-    <app-task></app-task>
-    <app-task></app-task>
-    <app-task></app-task>
+    @for(task of taskColumn.tasks; track task.id) {
+    <app-task [task]="task"></app-task>
+    }
   </div>
 </div>
 
 @if(openAddTaskModal()){
-<app-add-task-modal (closeEvent)="closeModal()"></app-add-task-modal>
+<app-add-task-modal
+  (closeEvent)="closeModal()"
+  [taskColumnId]="taskColumn.id"
+></app-add-task-modal>
 }

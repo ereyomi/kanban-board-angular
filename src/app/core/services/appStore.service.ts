@@ -9,7 +9,15 @@ export class AppStoreService {
     {
       id: uuidv4(),
       label: 'Todo',
-      tasks: [],
+      tasks: [
+        {
+          id: uuidv4(),
+          title: 'Building kanban app',
+          about: 'Empowing project manages build wonderful projects',
+          status: 'todo',
+          subTasks: ['Moving pending tasks'],
+        },
+      ],
     },
   ]);
 
@@ -29,13 +37,16 @@ export class AppStoreService {
   }
 
   // Add a new task to a specific task store
-  addTaskToStore(storeId: string, task: TaskT): void {
+  addTaskToStore(storeId: string, task: Omit<TaskT, 'id'>): void {
     this.store.update((v) =>
       v.map((store) => {
         if (store.id === storeId) {
           return {
             ...store,
-            tasks: [...store.tasks, task],
+            tasks: [...store.tasks, {
+              id: uuidv4(),
+              ...task
+            }],
           };
         }
         return store;
