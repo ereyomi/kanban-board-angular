@@ -11,13 +11,15 @@ import { AppStoreService } from '../core/services/appStore.service';
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
-  private appServiceStore = inject(AppStoreService);
+  private readonly appServiceStore = inject(AppStoreService);
+
+  readonly storeData = this.appServiceStore.storeData();
 
   constructor() {
-    /* effect(() => {
+    effect(() => {
       // console.log('store', this.appServiceStore.store());
-      console.log('here');
-    }); */
+      console.log('here', this.storeData());
+    });
   }
 
   openAddColumnModal = signal<boolean>(false);

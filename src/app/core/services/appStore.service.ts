@@ -1,16 +1,20 @@
 import { Injectable, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { TaskStoreT, TaskT } from '../types/task';
+import { TaskSColumnT, TaskT } from '../types/task';
 @Injectable({
   providedIn: 'root',
 })
 export class AppStoreService {
-  store = signal<TaskStoreT[]>([]);
+  private store = signal<TaskSColumnT[]>([]);
 
-  constructor() {}
+  constructor() { }
+
+  storeData() {
+    return this.store.asReadonly();
+  }
 
   addTaskColumn(label: string) {
-    const taskColumnData: TaskStoreT = {
+    const taskColumnData: TaskSColumnT = {
       id: uuidv4(),
       label,
       tasks: [],

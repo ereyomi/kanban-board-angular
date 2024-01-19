@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { TaskComponent } from '../task/task.component';
 import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.component';
+import { TaskSColumnT } from '../../types/task';
 
 @Component({
   selector: 'app-task-list',
@@ -10,6 +11,7 @@ import { AddTaskModalComponent } from '../add-task-modal/add-task-modal.componen
   styleUrl: './task-list.component.scss'
 })
 export class TaskListComponent {
+  @Input({required: true}) taskColumn!: TaskSColumnT;
   openAddTaskModal = signal<boolean>(false)
 
   openModal() {

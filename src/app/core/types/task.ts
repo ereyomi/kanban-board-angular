@@ -7,7 +7,7 @@ export type TaskT = {
   status: string;
 };
 
-export type TaskStoreT = {
+export type TaskSColumnT = {
   id: string;
   label: string;
   tasks: TaskT[];
