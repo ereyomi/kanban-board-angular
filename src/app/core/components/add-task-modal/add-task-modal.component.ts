@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   FormArray,
@@ -6,6 +6,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { AppStoreService } from '../../services/appStore.service';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -16,6 +17,7 @@ import {
 })
 export class AddTaskModalComponent {
   @Output() closeEvent: EventEmitter<void> = new EventEmitter();
+  private readonly appServiceStore = inject(AppStoreService);
 
   taskFormGroup = new FormGroup({
     title: new FormControl<string>('', { nonNullable: true }),
@@ -35,5 +37,8 @@ export class AddTaskModalComponent {
 
   deleteASubTaskForm(index: number) {
     this.taskFormGroup.controls.subTasks.removeAt(index);
+  }
+  addTask() {
+    console.log(this.taskFormGroup.value);
   }
 }

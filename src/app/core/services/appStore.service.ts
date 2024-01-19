@@ -5,9 +5,15 @@ import { TaskSColumnT, TaskT } from '../types/task';
   providedIn: 'root',
 })
 export class AppStoreService {
-  private store = signal<TaskSColumnT[]>([]);
+  private store = signal<TaskSColumnT[]>([
+    {
+      id: uuidv4(),
+      label: 'Todo',
+      tasks: [],
+    },
+  ]);
 
-  constructor() { }
+  constructor() {}
 
   storeData() {
     return this.store.asReadonly();
@@ -56,5 +62,14 @@ export class AppStoreService {
         return store;
       })
     );
+  }
+
+  getTaskStore(storeId: string): TaskSColumnT | undefined {
+    return this.store().find((store) => store.id === storeId);
+  }
+
+  getTask(storeId: string, taskId: string): TaskT | undefined {
+    const taskStore = this.store().find((store) => store.id === storeId);
+    return taskStore?.tasks.find((task) => task.id === taskId);
   }
 }
