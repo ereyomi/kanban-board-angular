@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  inject,
+} from '@angular/core';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   FormArray,
@@ -17,7 +24,7 @@ import { TaskT } from '../../../types/task';
   templateUrl: './add-task-modal.component.html',
   styleUrl: './add-task-modal.component.scss',
 })
-export class AddTaskModalComponent {
+export class AddTaskModalComponent implements OnInit {
   @Output() closeEvent: EventEmitter<void> = new EventEmitter();
   @Input({ required: true }) taskColumnId!: string;
 
@@ -35,11 +42,15 @@ export class AddTaskModalComponent {
       validators: [Validators.required],
     }),
     subTasks: new FormArray<FormControl<string>>([]),
-    status: new FormControl<string>('in-p', {
+    status: new FormControl<string>('', {
       nonNullable: true,
       validators: [Validators.required],
     }),
   });
+
+  ngOnInit(): void {
+    this.taskFormGroup.patchValue({ status: this.taskColumnId });
+  }
 
   closeModal() {
     this.closeEvent.emit();
@@ -54,15 +65,17 @@ export class AddTaskModalComponent {
     this.taskFormGroup.controls.subTasks.removeAt(index);
   }
   addTask() {
-    console.log(this.taskFormGroup.value);
-   if (this.taskFormGroup.value) {
+    if (this.taskFormGroup.value && this.taskFormGroup.value.status) {
       const task: Omit<TaskT, 'id'> = {
         title: this.taskFormGroup.value?.title ?? '',
         about: this.taskFormGroup.value?.about ?? '',
-        status: this.taskFormGroup.value?.status ?? '',
+        status: this.taskFormGroup.value.status,
         subTasks: this.taskFormGroup.value?.subTasks ?? [],
       };
-      this.appServiceStore.addTaskToStore(this.taskColumnId, task);
+      this.appServiceStore.addTaskToStore(
+        this.taskFormGroup.value.status,
+        task
+      );
       this.closeModal();
     }
   }

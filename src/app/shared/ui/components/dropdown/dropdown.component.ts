@@ -1,5 +1,12 @@
 import { NgClass } from '@angular/common';
-import { Component, Input, Optional, Self, signal } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  Optional,
+  Self,
+  signal,
+} from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
 import { SelectOptionT } from '../../../types/Select';
 
@@ -10,8 +17,8 @@ import { SelectOptionT } from '../../../types/Select';
   templateUrl: './dropdown.component.html',
   styleUrl: './dropdown.component.scss',
 })
-export class DropdownComponent implements ControlValueAccessor {
-  @Input() options!: SelectOptionT[];
+export class DropdownComponent implements ControlValueAccessor, OnInit {
+  @Input({ required: true }) options!: SelectOptionT[];
 
   @Input() placeholder: string = '';
 
@@ -34,6 +41,14 @@ export class DropdownComponent implements ControlValueAccessor {
 
   public get inputControl() {
     return this.controlDir?.control;
+  }
+
+  ngOnInit(): void {
+    // if I have a value passed in, do update my selected value
+    if (this.inputControl?.value) {
+      const f = this.options.find((v) => v.id === this.inputControl?.value);
+      this.selectedValue.update((prevOp) => f || prevOp);
+    }
   }
 
   writeValue(value: string): void {
