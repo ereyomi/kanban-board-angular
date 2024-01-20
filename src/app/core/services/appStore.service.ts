@@ -1,10 +1,6 @@
 import { Injectable, Signal, computed, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  CreateTask,
-  TaskStatusColumnT,
-  TaskT,
-} from '../../shared/types/task';
+import { CreateTask, TaskStatusColumnT, TaskT } from '../../shared/types/task';
 import { SelectOptionT } from '../../shared/types/Select';
 @Injectable({
   providedIn: 'root',
@@ -83,7 +79,11 @@ export class AppStoreService {
     );
   }
 
-  updateTask(statusId: string, taskId: string, pTask: Partial<TaskT>): void {
+  updateTask(
+    statusId: string,
+    taskId: string,
+    pTask: Omit<TaskT, 'statusId'>
+  ): void {
     this.taskStore.update((v) =>
       v.map((sc) => {
         if (sc.id === statusId) {
@@ -105,27 +105,30 @@ export class AppStoreService {
     );
   }
 
-  findTask(predicate: (task: TaskT) => boolean): TaskT | undefined {
-    const taskStores = this.taskStore();
-    for (const taskStatus of taskStores) {
-      const foundTask = taskStatus.tasks.find(predicate);
-      if (foundTask) {
-        return foundTask;
-      }
+  changeTaskStatus(
+    oldStatusId: string,
+    newStatusId: string,
+    task: TaskT
+  ): void {
+    if (oldStatusId !== newStatusId) {
+      this.taskStore.update((v) =>
+        v.map((sc) => {
+          if (sc.id === oldStatusId) {
+            return {
+              ...sc,
+              tasks: sc.tasks.filter((f) => f.id !== task.id),
+            };
+          }
+          if (sc.id === newStatusId) {
+            return {
+              ...sc,
+              tasks: [...sc.tasks, { ...task, statusId: newStatusId }],
+            };
+          } else {
+            return sc;
+          }
+        })
+      );
     }
-    return undefined;
-  }
-
-  getTaskStore(statusId: string): TaskStatusColumnT | undefined {
-    return this.taskStore().find((s) => s.id === statusId);
-  }
-
-  getTaskStoreName(statusId: string): string {
-    return this.getTaskStore(statusId)?.label ?? '';
-  }
-
-  getTask(storeId: string, taskId: string): TaskT | undefined {
-    const taskStore = this.taskStore().find((s) => s.id === storeId);
-    return taskStore?.tasks.find((task) => task.id === taskId);
   }
 }

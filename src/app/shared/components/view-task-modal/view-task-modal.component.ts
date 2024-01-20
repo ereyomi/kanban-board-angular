@@ -2,43 +2,59 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   inject,
-  Signal,
-  signal,
 } from '@angular/core';
 import { ModalComponent } from '../../ui/modal/modal.component';
 import { SubTask, TaskT } from '../../types/task';
 import { AppStoreService } from '../../../core/services/appStore.service';
 import { NgClass } from '@angular/common';
+import { DropdownComponent } from '../dropdown/dropdown.component';
+import {
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import { tap } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-task-modal',
   standalone: true,
-  imports: [ModalComponent, NgClass],
+  imports: [ModalComponent, NgClass, DropdownComponent, ReactiveFormsModule],
   templateUrl: './view-task-modal.component.html',
   styleUrl: './view-task-modal.component.scss',
 })
-export class ViewTaskModalComponent implements OnInit {
-  @Output() closeEvent: EventEmitter<void> = new EventEmitter();
-  @Input({ required: true }) task!: TaskT;
-
-  statusLabel = signal<string>('');
-
+export class ViewTaskModalComponent implements OnInit, OnDestroy {
   private readonly appServiceStore = inject(AppStoreService);
+  readonly taskColumnsList = this.appServiceStore.taskStatusColumns();
+  private _task!: TaskT;
+  doneSubTask = 0;
+
+  statusIdFormControl = new FormControl('', Validators.required);
+
+  @Output() closeEvent: EventEmitter<void> = new EventEmitter();
+
+  @Input({ required: true }) set task(d: TaskT) {
+    this._task = d;
+    this.doneSubTask = d.subTasks.filter((v) => v.done).length;
+  }
+
+  get task() {
+    return this._task;
+  }
 
   ngOnInit(): void {
-    console.log(this.task);
-    this.statusLabel.set(
-      this.appServiceStore.getTaskStoreName(this.task.statusId)
-    );
+    this.statusIdFormControl.setValue(this._task.statusId);
   }
 
   closeModal() {
     this.closeEvent.emit();
   }
-  
+
   updateSubTask(subTask: SubTask) {
     const n: TaskT = {
       ...this.task,
@@ -52,7 +68,19 @@ export class ViewTaskModalComponent implements OnInit {
         return v;
       }),
     };
-    console.log(n);
     this.appServiceStore.updateTask(this.task.statusId, this.task.id, n);
+  }
+
+  ngOnDestroy(): void {
+    if (this.statusIdFormControl.value) {
+      this.appServiceStore.changeTaskStatus(
+        this.task.statusId,
+        this.statusIdFormControl.value,
+        {
+          ...this._task,
+          statusId: this.statusIdFormControl.value,
+        }
+      );
+    }
   }
 }
