@@ -3,9 +3,11 @@
 >
   <div class="w-full flex items-center justify-between">
     <div class="flex gap-2 items-center">
-      <h2 class="text-slate-900 text-xl font-extrabold">
-        {{ taskColumn.label }}
-      </h2>
+      <div class="max-w-[150px]">
+        <p class="text-slate-900 text-xl font-extrabold">
+          {{ taskColumn.label }}
+        </p>
+      </div>
       <span
         class="inline-flex items-center rounded-md bg-purple-50 px-2 py-1 text-xs font-medium text-purple-700 ring-1 ring-inset ring-purple-700/10"
         >{{ taskColumn.tasks.length }}

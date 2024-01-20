@@ -7,8 +7,8 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AppStoreService } from '../../services/appStore.service';
-import { TaskT } from '../../types/task';
+import { AppStoreService } from '../../../../core/services/appStore.service';
+import { TaskT } from '../../../types/task';
 
 @Component({
   selector: 'app-add-task-modal',
@@ -23,6 +23,8 @@ export class AddTaskModalComponent {
 
   private readonly appServiceStore = inject(AppStoreService);
 
+  readonly taskColumnsList = this.appServiceStore.taskColumns();
+
   taskFormGroup = new FormGroup({
     title: new FormControl<string>('', {
       nonNullable: true,
@@ -33,7 +35,7 @@ export class AddTaskModalComponent {
       validators: [Validators.required],
     }),
     subTasks: new FormArray<FormControl<string>>([]),
-    status: new FormControl<string>('', {
+    status: new FormControl<string>('in-p', {
       nonNullable: true,
       validators: [Validators.required],
     }),
@@ -52,7 +54,8 @@ export class AddTaskModalComponent {
     this.taskFormGroup.controls.subTasks.removeAt(index);
   }
   addTask() {
-    if (this.taskFormGroup.value) {
+    console.log(this.taskFormGroup.value);
+   if (this.taskFormGroup.value) {
       const task: Omit<TaskT, 'id'> = {
         title: this.taskFormGroup.value?.title ?? '',
         about: this.taskFormGroup.value?.about ?? '',

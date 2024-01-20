@@ -1,13 +1,14 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, Signal, computed, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { TaskSColumnT, TaskT } from '../types/task';
+import { TaskSColumnT, TaskT } from '../../shared/types/task';
+import { SelectOptionT } from '../../shared/types/Select';
 @Injectable({
   providedIn: 'root',
 })
 export class AppStoreService {
   private store = signal<TaskSColumnT[]>([
     {
-      id: uuidv4(),
+      id: 'todo-1', // uuidv4(),
       label: 'Todo',
       tasks: [
         {
@@ -19,7 +20,24 @@ export class AppStoreService {
         },
       ],
     },
+    {
+      id: 'in-p', // uuidv4(),
+      label: 'in Progress',
+      tasks: [
+        {
+          id: uuidv4(),
+          title: 'Building kanban app',
+          about: 'Empowing project manages build wonderful projects',
+          status: 'todo',
+          subTasks: ['Moving pending tasks'],
+        },
+      ],
+    },
   ]);
+
+  taskColumns: Signal<SelectOptionT[]>  = computed(() =>
+    this.store().map((v) => ({ id: v.id, label: v.label }))
+  );
 
   constructor() {}
 
@@ -43,10 +61,13 @@ export class AppStoreService {
         if (store.id === storeId) {
           return {
             ...store,
-            tasks: [...store.tasks, {
-              id: uuidv4(),
-              ...task
-            }],
+            tasks: [
+              ...store.tasks,
+              {
+                id: uuidv4(),
+                ...task,
+              },
+            ],
           };
         }
         return store;

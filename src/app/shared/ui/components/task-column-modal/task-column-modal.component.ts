@@ -1,9 +1,9 @@
 import { JsonPipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BadWordsValidator } from '../../Validator/bad-words';
-import { ForbiddenCharactersValidator } from '../../Validator/forbidden';
-import { AppStoreService } from '../../services/appStore.service';
+import { BadWordsValidator } from '../../../Validator/bad-words';
+import { ForbiddenCharactersValidator } from '../../../Validator/forbidden';
+import { AppStoreService } from '../../../../core/services/appStore.service';
 @Component({
   selector: 'app-task-column-modal',
   standalone: true,

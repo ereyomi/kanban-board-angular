@@ -114,7 +114,10 @@
           class="block text-sm font-medium leading-6 text-gray-900 mb-2"
           >Status</label
         >
-        <app-dropdown></app-dropdown>
+        <app-dropdown
+          formControlName="status"
+          [options]="taskColumnsList"
+        ></app-dropdown>
       </div>
       <div class="w-full flex justify-end items-center gap-6">
         <button

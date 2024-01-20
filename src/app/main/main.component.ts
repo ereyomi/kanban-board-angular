@@ -1,6 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { TaskListComponent } from '../core/components/task-list/task-list.component';
-import { TaskColumnModalComponent } from '../core/components/task-column-modal/task-column-modal.component';
+import { TaskListComponent } from '../shared/ui/components/task-list/task-list.component';
+import { TaskColumnModalComponent } from '../shared/ui/components/task-column-modal/task-column-modal.component';
 import { AppStoreService } from '../core/services/appStore.service';
 
 @Component({
