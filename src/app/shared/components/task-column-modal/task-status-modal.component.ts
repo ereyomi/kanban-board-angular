@@ -1,17 +1,18 @@
 import { JsonPipe, NgClass } from '@angular/common';
 import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { BadWordsValidator } from '../../../Validator/bad-words';
-import { ForbiddenCharactersValidator } from '../../../Validator/forbidden';
-import { AppStoreService } from '../../../../core/services/appStore.service';
+import { BadWordsValidator } from '../../Validator/bad-words';
+import { ForbiddenCharactersValidator } from '../../Validator/forbidden';
+import { AppStoreService } from '../../../core/services/appStore.service';
+import { ModalComponent } from '../../ui/modal/modal.component';
 @Component({
-  selector: 'app-task-column-modal',
+  selector: 'app-task-status-modal',
   standalone: true,
-  imports: [ReactiveFormsModule, NgClass, JsonPipe],
-  templateUrl: './task-column-modal.component.html',
-  styleUrl: './task-column-modal.component.scss',
+  imports: [ReactiveFormsModule, ModalComponent, NgClass, JsonPipe],
+  templateUrl: './task-status-modal.component.html',
+  styleUrl: './task-status-modal.component.scss',
 })
-export class TaskColumnModalComponent {
+export class TaskStatusModalComponent {
   @Output() closeEvent: EventEmitter<void> = new EventEmitter();
 
   private appServiceStore = inject(AppStoreService);
@@ -31,7 +32,7 @@ export class TaskColumnModalComponent {
   }
 
   addTaskColumn() {
-    this.appServiceStore.addTaskColumn(this.componentForm.value);
+    this.appServiceStore.addTaskStatusColumn(this.componentForm.value);
     this.closeModal();
   }
 }

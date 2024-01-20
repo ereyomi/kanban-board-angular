@@ -1,0 +1,13 @@
+<div
+  class="w-full h-auto p-3 shadow-sm bg-white rounded-md cursor-pointer"
+  (click)="openModal()"
+>
+  <h1 class="text-sm font-bold">{{ task.title }}</h1>
+  <p class="text-sm text-gray-600">
+    {{ task.subTasks.length }}
+    {{ task.subTasks.length < 2 ? "subtask" : "subtasks" }}
+  </p>
+</div>
+@if(openViewTaskModal()){
+<app-view-task-modal [task]="task" (closeEvent)="closeModal()"></app-view-task-modal>
+}

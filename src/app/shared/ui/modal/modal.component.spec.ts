@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TaskColumnModalComponent } from './task-column-modal.component';
+import { ModalComponent } from './modal.component';
 
-describe('TaskColumnModalComponent', () => {
-  let component: TaskColumnModalComponent;
-  let fixture: ComponentFixture<TaskColumnModalComponent>;
+describe('ModalComponent', () => {
+  let component: ModalComponent;
+  let fixture: ComponentFixture<ModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskColumnModalComponent]
+      imports: [ModalComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(TaskColumnModalComponent);
+    fixture = TestBed.createComponent(ModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

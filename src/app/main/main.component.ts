@@ -1,26 +1,21 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { TaskListComponent } from '../shared/ui/components/task-list/task-list.component';
-import { TaskColumnModalComponent } from '../shared/ui/components/task-column-modal/task-column-modal.component';
+import { TaskListComponent } from '../shared/components/task-list/task-list.component';
+import { TaskStatusModalComponent } from '../shared/components/task-column-modal/task-status-modal.component';
 import { AppStoreService } from '../core/services/appStore.service';
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [TaskListComponent, TaskColumnModalComponent],
+  imports: [TaskListComponent, TaskStatusModalComponent],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
 export class MainComponent {
   private readonly appServiceStore = inject(AppStoreService);
 
-  readonly storeData = this.appServiceStore.storeData();
+  readonly storeData = this.appServiceStore.taskStoreData();
 
-  constructor() {
-    effect(() => {
-      // console.log('store', this.appServiceStore.store());
-      console.log('here', this.storeData());
-    });
-  }
+  constructor() {}
 
   openAddColumnModal = signal<boolean>(false);
 

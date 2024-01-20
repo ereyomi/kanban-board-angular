@@ -1,71 +1,79 @@
 import { Injectable, Signal, computed, signal } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
-import { TaskSColumnT, TaskT } from '../../shared/types/task';
+import {
+  CreateTask,
+  TaskStatusColumnT,
+  TaskT,
+} from '../../shared/types/task';
 import { SelectOptionT } from '../../shared/types/Select';
 @Injectable({
   providedIn: 'root',
 })
 export class AppStoreService {
-  private store = signal<TaskSColumnT[]>([
+  private taskStore = signal<TaskStatusColumnT[]>([
     {
-      id: 'todo-1', // uuidv4(),
+      id: 'todo-uuid',
       label: 'Todo',
       tasks: [
         {
           id: uuidv4(),
           title: 'Building kanban app',
           about: 'Empowing project manages build wonderful projects',
-          status: 'todo',
-          subTasks: ['Moving pending tasks'],
-        },
-      ],
-    },
-    {
-      id: 'in-p', // uuidv4(),
-      label: 'in Progress',
-      tasks: [
-        {
-          id: uuidv4(),
-          title: 'Building kanban app',
-          about: 'Empowing project manages build wonderful projects',
-          status: 'todo',
-          subTasks: ['Moving pending tasks'],
+          statusId: 'todo-uuid',
+          subTasks: [
+            {
+              id: 'dsdsds',
+              label: 'Moving pending tasks',
+              done: true,
+            },
+            {
+              id: 'fffsdsds',
+              label: 'Moving tasks to done done',
+              done: false,
+            },
+          ],
         },
       ],
     },
   ]);
 
-  taskColumns: Signal<SelectOptionT[]>  = computed(() =>
-    this.store().map((v) => ({ id: v.id, label: v.label }))
+  taskStatusColumns: Signal<SelectOptionT[]> = computed(() =>
+    this.taskStore().map((v) => ({ id: v.id, label: v.label }))
   );
 
   constructor() {}
 
-  storeData() {
-    return this.store.asReadonly();
+  taskStoreData() {
+    return this.taskStore.asReadonly();
   }
 
-  addTaskColumn(label: string) {
-    const taskColumnData: TaskSColumnT = {
+  addTaskStatusColumn(label: string) {
+    const taskStatusColumnData: TaskStatusColumnT = {
       id: uuidv4(),
       label,
       tasks: [],
     };
-    this.store.update((v) => [...v, taskColumnData]);
+    this.taskStore.update((v) => [...v, taskStatusColumnData]);
   }
 
   // Add a new task to a specific task store
-  addTaskToStore(storeId: string, task: Omit<TaskT, 'id'>): void {
-    this.store.update((v) =>
+  addTaskToStore(statusId: string, newTask: CreateTask): void {
+    this.taskStore.update((v) =>
       v.map((store) => {
-        if (store.id === storeId) {
+        if (store.id === statusId) {
           return {
             ...store,
             tasks: [
               ...store.tasks,
               {
+                ...newTask,
+                statusId: statusId,
                 id: uuidv4(),
-                ...task,
+                subTasks: newTask.subTasks.map((l) => ({
+                  id: uuidv4(),
+                  label: l,
+                  done: false,
+                })),
               },
             ],
           };
@@ -74,34 +82,50 @@ export class AppStoreService {
       })
     );
   }
-  updateTaskStatus(storeId: string, taskId: string, newStatus: string): void {
-    this.store.update((v) =>
-      v.map((store) => {
-        if (store.id === storeId) {
+
+  updateTask(statusId: string, taskId: string, pTask: Partial<TaskT>): void {
+    this.taskStore.update((v) =>
+      v.map((sc) => {
+        if (sc.id === statusId) {
           return {
-            ...store,
-            tasks: store.tasks.map((task) => {
+            ...sc,
+            tasks: sc.tasks.map((task) => {
               if (task.id === taskId) {
                 return {
                   ...task,
-                  status: newStatus,
+                  ...pTask,
                 };
               }
               return task;
             }),
           };
         }
-        return store;
+        return sc;
       })
     );
   }
 
-  getTaskStore(storeId: string): TaskSColumnT | undefined {
-    return this.store().find((store) => store.id === storeId);
+  findTask(predicate: (task: TaskT) => boolean): TaskT | undefined {
+    const taskStores = this.taskStore();
+    for (const taskStatus of taskStores) {
+      const foundTask = taskStatus.tasks.find(predicate);
+      if (foundTask) {
+        return foundTask;
+      }
+    }
+    return undefined;
+  }
+
+  getTaskStore(statusId: string): TaskStatusColumnT | undefined {
+    return this.taskStore().find((s) => s.id === statusId);
+  }
+
+  getTaskStoreName(statusId: string): string {
+    return this.getTaskStore(statusId)?.label ?? '';
   }
 
   getTask(storeId: string, taskId: string): TaskT | undefined {
-    const taskStore = this.store().find((store) => store.id === storeId);
+    const taskStore = this.taskStore().find((s) => s.id === storeId);
     return taskStore?.tasks.find((task) => task.id === taskId);
   }
 }

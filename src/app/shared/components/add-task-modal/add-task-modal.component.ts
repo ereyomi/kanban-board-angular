@@ -14,13 +14,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AppStoreService } from '../../../../core/services/appStore.service';
-import { TaskT } from '../../../types/task';
+import { AppStoreService } from '../../../core/services/appStore.service';
+import { CreateTask, TaskT } from '../../types/task';
+import { ModalComponent } from '../../ui/modal/modal.component';
 
 @Component({
   selector: 'app-add-task-modal',
   standalone: true,
-  imports: [DropdownComponent, ReactiveFormsModule],
+  imports: [DropdownComponent, ReactiveFormsModule, ModalComponent],
   templateUrl: './add-task-modal.component.html',
   styleUrl: './add-task-modal.component.scss',
 })
@@ -30,7 +31,7 @@ export class AddTaskModalComponent implements OnInit {
 
   private readonly appServiceStore = inject(AppStoreService);
 
-  readonly taskColumnsList = this.appServiceStore.taskColumns();
+  readonly taskColumnsList = this.appServiceStore.taskStatusColumns();
 
   taskFormGroup = new FormGroup({
     title: new FormControl<string>('', {
@@ -66,10 +67,9 @@ export class AddTaskModalComponent implements OnInit {
   }
   addTask() {
     if (this.taskFormGroup.value && this.taskFormGroup.value.status) {
-      const task: Omit<TaskT, 'id'> = {
+      const task: CreateTask = {
         title: this.taskFormGroup.value?.title ?? '',
         about: this.taskFormGroup.value?.about ?? '',
-        status: this.taskFormGroup.value.status,
         subTasks: this.taskFormGroup.value?.subTasks ?? [],
       };
       this.appServiceStore.addTaskToStore(

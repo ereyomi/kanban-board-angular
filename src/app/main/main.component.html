@@ -3,7 +3,7 @@
     <h1 class="text-slate-900 text-3xl font-extrabold">Ereyomi Board</h1>
     <button
       type="button"
-      class="px-5 py-3 bg-violet-600 text-white rounded-md text-sm flex items-center gap-2 cursor-pointer hover:bg-violet-500"
+      class="px-5 py-2 h-[40px] bg-violet-600 text-white rounded-md text-sm flex items-center gap-2 cursor-pointer hover:bg-violet-500"
       (click)="openColumnModal()"
     >
       <svg
@@ -21,7 +21,7 @@
         />
       </svg>
 
-      Add Task Column
+      Add Task Status
     </button>
   </div>
   <div class="w-full flex flex-row overflow-auto gap-6">
@@ -32,7 +32,7 @@
 </div>
 
 @if(openAddColumnModal()) {
-<app-task-column-modal
+<app-task-status-modal
   (closeEvent)="closeColumnModal()"
-></app-task-column-modal>
+></app-task-status-modal>
 }

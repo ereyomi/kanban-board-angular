@@ -1,0 +1,50 @@
+<app-modal
+  ><div
+    class="bg-white w-[500px] h-auto rounded-xl border border-solid border-gray-200 p-6"
+  >
+    <h1 class="text-slate-900 text-xl font-extrabold">
+      {{ task.title }}
+    </h1>
+    <p class="text-sm text-gray-500 my-3">
+      {{ task.about }}
+    </p>
+    <p class="block text-sm font-medium leading-6 text-gray-900">
+      Subtasks (0 of 3)
+    </p>
+    @for (item of task.subTasks; track $index) {
+    <div
+      class="w-full mt-2 flex flex-row gap-3 items-center bg-violet-200 p-3 border border-solid border-violet-300 rounded-md shadow-sm"
+    >
+      <input
+        [checked]="item.done"
+        type="checkbox"
+        id="subTask-1"
+        class="w-[18px] h-[18px] rounded accent-violet-700 focus:ring-violet-700"
+        (change)="updateSubTask(item)"
+      />
+      <p
+        class="text-sm text-grey-600"
+        [ngClass]="{ 'underline decoration-wavy': item.done }"
+      >
+        {{ item.label }}
+      </p>
+    </div>
+    }
+    <div class="w-full flex items-center mt-3 gap-3">
+      <p class="block text-sm font-medium leading-6 text-gray-900">Status</p>
+      <span
+        class="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
+        >{{ statusLabel() }}</span
+      >
+    </div>
+    <div class="mt-8">
+      <button
+        type="button"
+        class="px-5 py-2 h-[40px] bg-red-400 text-white rounded-md text-sm cursor-pointer hover:bg-red-400"
+        (click)="closeModal()"
+      >
+        close
+      </button>
+    </div>
+  </div>
+</app-modal>

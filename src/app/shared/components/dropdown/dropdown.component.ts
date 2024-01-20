@@ -8,7 +8,7 @@ import {
   signal,
 } from '@angular/core';
 import { ControlValueAccessor, NgControl } from '@angular/forms';
-import { SelectOptionT } from '../../../types/Select';
+import { SelectOptionT } from '../../types/Select';
 
 @Component({
   selector: 'app-dropdown',

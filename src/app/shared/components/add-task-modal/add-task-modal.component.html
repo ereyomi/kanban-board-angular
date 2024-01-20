@@ -1,8 +1,4 @@
-<div class="fixed inset-0 z-30 bg-gray-50 bg-opacity-5 backdrop-blur"></div>
-
-<div
-  class="fixed inset-0 z-40 overflow-y-auto flex justify-center items-center"
->
+<app-modal>
   <form
     class="bg-white w-[500px] h-auto rounded-xl border border-solid border-gray-200 p-6"
     [formGroup]="taskFormGroup"
@@ -122,14 +118,14 @@
       <div class="w-full flex justify-end items-center gap-6">
         <button
           type="button"
-          class="px-5 py-3 h-[50px] bg-red-400 text-white rounded-md text-sm cursor-pointer hover:bg-red-400"
+          class="px-5 py-2 h-[40px] bg-red-400 text-white rounded-md text-sm cursor-pointer hover:bg-red-400"
           (click)="closeModal()"
         >
           Cancel
         </button>
         <button
           type="button"
-          class="px-5 py-3 h-[50px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-500 disabled:bg-violet-200 disabled:cursor-not-allowed"
+          class="px-5 py-2 h-[40px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-500 disabled:bg-violet-200 disabled:cursor-not-allowed"
           (click)="addTask()"
           [disabled]="taskFormGroup.invalid"
         >
@@ -138,4 +134,4 @@
       </div>
     </div>
   </form>
-</div>
+</app-modal>
