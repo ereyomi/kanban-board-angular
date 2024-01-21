@@ -19,10 +19,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "lib": ["ES2022", "dom"]
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
@@ -30,5 +27,9 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "allowSyntheticDefaultImports": true
+  "allowSyntheticDefaultImports": true,
+  /* this is needed to avoid Angular-CLI with Jasmine unit tests, Chai types conflict */
+  "include": ["src", "node_modules/cypress"],
+  "exclude": ["node_modules/cypress"]
+  /* ------------------ */
 }
