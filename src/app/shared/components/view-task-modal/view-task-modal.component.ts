@@ -14,12 +14,9 @@ import { NgClass } from '@angular/common';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { tap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-task-modal',
