@@ -17,6 +17,7 @@
           '!border !border-solid !border-red-700 placeholder:!text-red-700':
             componentForm.touched && componentForm.invalid
         }"
+        data-cy="task-column-input"
       />
     </div>
 
@@ -78,6 +79,7 @@
         class="px-5 py-2 h-[40px] bg-violet-600 text-white rounded-md text-sm cursor-pointer hover:bg-violet-700 disabled:bg-violet-200 disabled:cursor-not-allowed"
         [disabled]="componentForm.invalid"
         (click)="addTaskColumn()"
+        data-cy="add-task-status"
       >
         Add
       </button>
