@@ -6,8 +6,9 @@
     aria-expanded="true"
     aria-haspopup="true"
     (click)="toggleDropDown()"
+    data-cy="drop-down-toggle-button"
   >
-    <span>{{ selectedValue().label || placeholder }}</span>
+    <span data-cy="drop-down-label">{{ selectedValue().label || placeholder }}</span>
     <svg
       class="-mr-1 h-5 w-5 text-gray-400"
       viewBox="0 0 20 20"

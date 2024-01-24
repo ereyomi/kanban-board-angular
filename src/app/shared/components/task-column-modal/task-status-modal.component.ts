@@ -17,6 +17,8 @@ export class TaskStatusModalComponent {
 
   private appServiceStore = inject(AppStoreService);
 
+  showLabelExistError = false;
+
   componentForm = new FormControl<string>('', {
     nonNullable: true,
     validators: [
@@ -32,6 +34,18 @@ export class TaskStatusModalComponent {
   }
 
   addTaskColumn() {
+    const checkIfLabelExist = this.appServiceStore.taskColumnLabelExist(
+      this.componentForm.value
+    );
+    if (checkIfLabelExist) {
+      this.showLabelExistError = true;
+      setTimeout(() => {
+        this.showLabelExistError = false;
+      }, 3000);
+
+      return;
+    }
+    console.log(checkIfLabelExist);
     this.appServiceStore.addTaskStatusColumn(this.componentForm.value);
     this.closeModal();
   }

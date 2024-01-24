@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { TaskListComponent } from '../shared/components/task-list/task-list.component';
 import { TaskStatusModalComponent } from '../shared/components/task-column-modal/task-status-modal.component';
 import { AppStoreService } from '../core/services/appStore.service';

@@ -10,7 +10,7 @@ import { ViewTaskModalComponent } from '../view-task-modal/view-task-modal.compo
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
-  
+
   @Input({ required: true }) task!: TaskT;
 
   openViewTaskModal = signal<boolean>(false);

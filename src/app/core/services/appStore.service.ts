@@ -31,6 +31,30 @@ export class AppStoreService {
         },
       ],
     },
+    {
+      id: 'in-progress',
+      label: 'In Progress',
+      tasks: [
+        {
+          id: uuidv4(),
+          title: 'Building in progress kanban app',
+          about: 'Empowing project manages build wonderful projects',
+          statusId: 'in-progress',
+          subTasks: [
+            {
+              id: 'dsdsdxdfds',
+              label: 'Moving pending tasks',
+              done: true,
+            },
+            {
+              id: 'ffdfdfdfsdsds',
+              label: 'Moving tasks to done done',
+              done: false,
+            },
+          ],
+        },
+      ],
+    },
   ]);
 
   taskStatusColumns: Signal<SelectOptionT[]> = computed(() =>
@@ -41,6 +65,10 @@ export class AppStoreService {
 
   taskStoreData() {
     return this.taskStore.asReadonly();
+  }
+
+  taskColumnLabelExist(label: string) {
+    return this.taskStatusColumns().some(task => task.label.trim().toLowerCase() === label.trim().toLowerCase())
   }
 
   addTaskStatusColumn(label: string) {
@@ -79,22 +107,15 @@ export class AppStoreService {
     );
   }
 
-  updateTask(
-    statusId: string,
-    taskId: string,
-    pTask: Omit<TaskT, 'statusId'>
-  ): void {
+  updateTask(statusId: string, pTask: TaskT): void {
     this.taskStore.update((v) =>
       v.map((sc) => {
         if (sc.id === statusId) {
           return {
             ...sc,
             tasks: sc.tasks.map((task) => {
-              if (task.id === taskId) {
-                return {
-                  ...task,
-                  ...pTask,
-                };
+              if (task.id === pTask.id) {
+                return pTask;
               }
               return task;
             }),

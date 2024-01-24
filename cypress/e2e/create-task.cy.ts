@@ -1,4 +1,8 @@
 describe('My First Test', () => {
+  beforeEach(() => {
+    cy.visit('/');
+  });
+
   it('Visits the initial project page', () => {
     cy.visit('/');
     cy.contains('Ereyomi Board');
@@ -14,7 +18,20 @@ describe('My First Test', () => {
 
       if (label === taskColumn) {
         cy.wrap($el.find('[data-cy="to-add-task"]')).click();
+
+        cy.get('[data-cy="drop-down-label"]').should('have.text', taskColumn);
+        // cy.get('[data-cy="drop-down-toggle-button"]').click()
+        cy.get('[formControlName="title"]').type('Cooking tomorrow');
+
+        cy.get('[formControlName="about"]').type(
+          'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book'
+        );
+
+        cy.get('[formControlName="title"]').type('Cooking tomorrow');
       }
     });
   });
+  /*  it('Visits the initial project page', () => {
+    cy.get('[data-cy="drop-down-toggle-button"]').click();
+  }); */
 });
