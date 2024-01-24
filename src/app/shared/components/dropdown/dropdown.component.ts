@@ -71,6 +71,7 @@ export class DropdownComponent implements ControlValueAccessor, OnInit {
   selectChange(item: SelectOptionT) {
     this.writeValue(item.id);
     this.selectedValue.set(item);
+    this.toggleDropDown();
   }
 
   toggleDropDown() {

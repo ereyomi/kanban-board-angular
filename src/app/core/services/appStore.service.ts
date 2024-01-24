@@ -31,7 +31,7 @@ export class AppStoreService {
         },
       ],
     },
-    {
+    /* {
       id: 'in-progress',
       label: 'In Progress',
       tasks: [
@@ -54,7 +54,7 @@ export class AppStoreService {
           ],
         },
       ],
-    },
+    }, */
   ]);
 
   taskStatusColumns: Signal<SelectOptionT[]> = computed(() =>

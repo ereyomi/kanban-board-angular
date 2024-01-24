@@ -40,7 +40,6 @@
     <div
       class="py-1 divide-y divide-gray-100"
       role="none"
-      (click)="toggleDropDown()"
     >
       <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
       @for(item of options; track item.id ){
@@ -49,11 +48,11 @@
         class="text-gray-700 px-4 py-2 text-sm flex flex-row items-center justify-between cursor-pointer"
         role="menuitem"
         tabindex="-1"
-        id="menu-item-0"
         (click)="selectChange(item)"
         [ngClass]="{
           'bg-gray-100 text-gray-900': inputControl?.value === item.id
         }"
+        data-cy="drop-down-option"
       >
         <span>{{ item.label }}</span>
         @if(inputControl?.value === item.id){
