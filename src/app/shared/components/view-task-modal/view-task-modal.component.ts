@@ -14,12 +14,9 @@ import { NgClass } from '@angular/common';
 import { DropdownComponent } from '../dropdown/dropdown.component';
 import {
   FormControl,
-  FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { tap } from 'rxjs';
-import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-view-task-modal',
@@ -56,9 +53,9 @@ export class ViewTaskModalComponent implements OnInit, OnDestroy {
   }
 
   updateSubTask(subTask: SubTask) {
-    const n: TaskT = {
-      ...this.task,
-      subTasks: this.task.subTasks.map((v) => {
+    const tk: TaskT = {
+      ...this._task,
+      subTasks: this._task.subTasks.map((v) => {
         if (v.id === subTask.id) {
           return {
             ...subTask,
@@ -68,7 +65,7 @@ export class ViewTaskModalComponent implements OnInit, OnDestroy {
         return v;
       }),
     };
-    this.appServiceStore.updateTask(this.task.statusId, this.task.id, n);
+    this.appServiceStore.updateTask(this.task.statusId, tk);
   }
 
   ngOnDestroy(): void {

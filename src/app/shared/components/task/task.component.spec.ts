@@ -34,16 +34,22 @@ describe('TaskComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskComponent]
-    })
-    .compileComponents();
+      imports: [TaskComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaskComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  it('should fail if @Input() is not provided', () => {
+    expect(() => fixture.detectChanges()).toThrow();
+  });
+
+  it('should pass if @Input() is provided', () => {
+    component.task = taskColumnData.tasks[0];
+    expect(() => fixture.detectChanges()).not.toThrow();
   });
 });
