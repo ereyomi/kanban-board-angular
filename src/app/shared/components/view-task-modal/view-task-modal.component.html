@@ -1,6 +1,7 @@
 <app-modal
   ><div
     class="bg-white w-[500px] h-auto rounded-xl border border-solid border-gray-200 p-6"
+    data-cy="view-task-modal-div"
   >
     <h1 class="text-slate-900 text-xl font-extrabold text-capitalize">
       {{ task.title }}
@@ -12,14 +13,14 @@
     <p class="block text-sm font-medium leading-6 text-gray-900">
       Subtasks ({{ doneSubTask }} of {{ task.subTasks.length }})
     </p>
-    @for (item of task.subTasks; track $index) {
+    @for (item of task.subTasks; track idx; let idx = $index) {
     <div
       class="w-full mt-2 flex flex-row gap-3 items-center bg-violet-200 p-3 border border-solid border-violet-300 rounded-md shadow-sm"
     >
       <input
         [checked]="item.done"
         type="checkbox"
-        id="subTask-1"
+        [attr.data-cy]="'view-sub-task-input-' + idx"
         class="w-[18px] h-[18px] rounded accent-violet-700 focus:ring-violet-700"
         (change)="updateSubTask(item)"
       />
@@ -47,6 +48,7 @@
         type="button"
         class="px-5 py-2 h-[40px] bg-red-400 text-white rounded-md text-sm cursor-pointer hover:bg-red-400"
         (click)="closeModal()"
+        data-cy="view-task-modal-close-btn"
       >
         close
       </button>
