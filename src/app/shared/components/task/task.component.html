@@ -1,6 +1,7 @@
 <div
   class="w-full h-auto p-3 shadow-sm bg-white rounded-md cursor-pointer"
   (click)="openModal()"
+  data-cy="view-task-div"
 >
   <h1 class="text-sm font-bold">{{ task.title }}</h1>
   @if (task.subTasks.length > 0) {
