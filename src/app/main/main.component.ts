@@ -14,7 +14,7 @@ import { NgIf } from '@angular/common';
 export class MainComponent {
   private readonly appServiceStore = inject(AppStoreService);
 
-  readonly storeData = this.appServiceStore.taskStoreData();
+  readonly storeData = this.appServiceStore.taskStoreData;
 
   constructor() {}
 
