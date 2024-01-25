@@ -1,9 +1,9 @@
 <div
   class="w-full h-auto p-3 shadow-sm bg-white rounded-md cursor-pointer"
   (click)="openModal()"
-  data-cy="view-task-div"
+  data-cy="sm-view-task-div"
 >
-  <h1 class="text-sm font-bold">{{ task.title }}</h1>
+  <h1 class="text-sm font-bold" data-cy="sm-view-task-title">{{ task.title }}</h1>
   @if (task.subTasks.length > 0) {
   <p class="text-sm text-gray-600">
     {{ doneSubTask }} of {{ task.subTasks.length }}

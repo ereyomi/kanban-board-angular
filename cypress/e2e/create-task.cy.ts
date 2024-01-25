@@ -1,4 +1,4 @@
-describe('My First Test', () => {
+describe('Create and View task', () => {
   beforeEach(() => {
     cy.visit('/');
   });
@@ -66,7 +66,7 @@ describe('My First Test', () => {
         cy.get('div[data-cy="drop-down-option"]').should('have.length', 2);
 
         // change status to todo
-        cy.get('[data-cy="drop-down-option"]').contains('Todo').click();
+        cy.get('[data-cy="drop-down-option"]').contains(taskColumnTwo).click();
 
         // change status to in progress
         cy.get('[data-cy="drop-down-toggle-button"]').click();
@@ -101,18 +101,6 @@ describe('My First Test', () => {
         cy.get('[data-cy="add-sub-task-button"]').click();
         cy.get('[data-cy="sub-task-input-2"]').type('Setup Desk');
 
-        // open drop down first
-        cy.get('[data-cy="drop-down-toggle-button"]').click();
-
-        cy.get('div[data-cy="drop-down-option"]').should('have.length', 2);
-
-        // change status to todo
-        cy.get('[data-cy="drop-down-option"]').contains('Todo').click();
-
-        // change status to in progress
-        cy.get('[data-cy="drop-down-toggle-button"]').click();
-        cy.get('[data-cy="drop-down-option"]').contains(taskColumnOne).click();
-
         // create task
         cy.get('[data-cy="create-task"]').click();
       }
@@ -124,7 +112,7 @@ describe('My First Test', () => {
     cy.get('[data-cy="task-list-component"]').each(($el) => {
       const label = $el.find('[data-cy="task-column-label"]').text().trim();
       if (label === taskColumnOne) {
-        const taskView = cy.get('[data-cy="view-task-div"]');
+        const taskView = cy.get('[data-cy="sm-view-task-div"]');
         taskView.should('exist');
         taskView.should('have.length', 2);
         taskView.each(($el, index) => {
@@ -132,12 +120,27 @@ describe('My First Test', () => {
           if (index === 0) {
             // open view
             cy.wrap($el).click();
+            cy.get('[data-cy="view-task-modal-div"]')
+              .should('exist')
+              .should('be.visible');
+
+            cy.get('[data-cy="view-sub-task-input-0"]').should('exist').check();
+
+            // open drop down first
+            cy.get('[data-cy="drop-down-toggle-button"]').click();
+
+            // change status to todo
+            cy.get('[data-cy="drop-down-option"]')
+              .contains(taskColumnTwo)
+              .click();
+
+            // click
+            cy.get('[data-cy="view-task-modal-close-btn"]')
+              .should('be.visible')
+              .click();
           }
-        })
+        });
       }
     });
   });
-  /*  it('Visits the initial project page', () => {
-    cy.get('[data-cy="drop-down-toggle-button"]').click();
-  }); */
 });

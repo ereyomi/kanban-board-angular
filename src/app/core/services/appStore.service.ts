@@ -6,56 +6,7 @@ import { SelectOptionT } from '../../shared/types/Select';
   providedIn: 'root',
 })
 export class AppStoreService {
-  private taskStore = signal<TaskStatusColumnT[]>([
-   /*  {
-      id: 'todo-uuid',
-      label: 'Todo',
-      tasks: [
-        {
-          id: uuidv4(),
-          title: 'Building kanban app',
-          about: 'Empowing project manages build wonderful projects',
-          statusId: 'todo-uuid',
-          subTasks: [
-            {
-              id: 'dsdsds',
-              label: 'Moving pending tasks',
-              done: true,
-            },
-            {
-              id: 'fffsdsds',
-              label: 'Moving tasks to done done',
-              done: false,
-            },
-          ],
-        },
-      ],
-    }, */
-    /* {
-      id: 'in-progress',
-      label: 'In Progress',
-      tasks: [
-        {
-          id: uuidv4(),
-          title: 'Building in progress kanban app',
-          about: 'Empowing project manages build wonderful projects',
-          statusId: 'in-progress',
-          subTasks: [
-            {
-              id: 'dsdsdxdfds',
-              label: 'Moving pending tasks',
-              done: true,
-            },
-            {
-              id: 'ffdfdfdfsdsds',
-              label: 'Moving tasks to done done',
-              done: false,
-            },
-          ],
-        },
-      ],
-    }, */
-  ]);
+  private taskStore = signal<TaskStatusColumnT[]>([]);
 
   taskStatusColumns: Signal<SelectOptionT[]> = computed(() =>
     this.taskStore().map((v) => ({ id: v.id, label: v.label }))
@@ -63,12 +14,14 @@ export class AppStoreService {
 
   constructor() {}
 
-  taskStoreData() {
+  get taskStoreData() {
     return this.taskStore.asReadonly();
   }
 
   taskColumnLabelExist(label: string) {
-    return this.taskStatusColumns().some(task => task.label.trim().toLowerCase() === label.trim().toLowerCase())
+    return this.taskStatusColumns().some(
+      (task) => task.label.trim().toLowerCase() === label.trim().toLowerCase()
+    );
   }
 
   addTaskStatusColumn(label: string) {
@@ -82,16 +35,19 @@ export class AppStoreService {
 
   // Add a new task to a specific task store
   addTaskToStore(statusId: string, newTask: CreateTask): void {
+    console.log('addTaskToStore:::', newTask, statusId, this.taskStore());
     this.taskStore.update((v) =>
       v.map((store) => {
         if (store.id === statusId) {
+          console.log('statusId:::', store.id, statusId, this.taskStore());
           return {
             ...store,
             tasks: [
               ...store.tasks,
               {
-                ...newTask,
-                statusId: statusId,
+                title: newTask.title,
+                about: newTask.about,
+                statusId,
                 id: uuidv4(),
                 subTasks: newTask.subTasks.map((l) => ({
                   id: uuidv4(),
@@ -105,6 +61,7 @@ export class AppStoreService {
         return store;
       })
     );
+    console.log('taskStore:::', statusId, this.taskStore());
   }
 
   updateTask(statusId: string, pTask: TaskT): void {
