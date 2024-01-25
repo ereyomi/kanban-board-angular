@@ -39,7 +39,8 @@
         {{componentForm.errors?.['minlength']?.['requiredLength']}}
       </p>
       } @if(showLabelExistError){
-      <div class="bg-red-400 max-w-[250px] p-1 rounded-md relative">
+      <div class="bg-red-400 max-w-[250px] p-1 rounded-md relative"
+      data-cy="error-div-for-task-column-exist">
         <p class="text-sm text-white">
           Looks like we already have a Task Container with that name
         </p>

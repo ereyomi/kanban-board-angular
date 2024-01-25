@@ -5,25 +5,44 @@ describe('My First Test', () => {
 
   it('Visits the initial project page', () => {
     cy.contains('Ereyomi Board');
+    cy.get('[data-cy="no-data-display"]').should('be.visible');
   });
 
   it('Visits the initial project page', () => {
+    // task columns
+    const taskColumnOne = 'Todo';
+    const taskColumnTwo = 'In Progress';
+
     cy.get('[data-cy="open-add-task-status-modal-button"]').click();
-
-    const taskColumn = 'In Progress';
-
-    cy.get('[ data-cy="task-column-input"]').type(taskColumn);
+    // create first column
+    cy.get('[ data-cy="task-column-input"]').type(taskColumnOne);
     cy.get('[data-cy="add-task-status"]').click();
+
+    cy.get('[data-cy="open-add-task-status-modal-button"]').click();
+    // try creating again. this shouldnt be possible
+
+    cy.get('[ data-cy="task-column-input"]').type(taskColumnOne);
+    cy.get('[data-cy="add-task-status"]').click();
+    cy.get('[data-cy="error-div-for-task-column-exist"]').should('be.visible');
+
+    // cls input value
+    cy.get('[ data-cy="task-column-input"]').clear();
+    cy.get('[ data-cy="task-column-input"]').type(taskColumnTwo);
+    cy.get('[data-cy="add-task-status"]').click();
+    cy.get('[data-cy="error-div-for-task-column-exist"]').should('not.exist');
 
     // get list component
     cy.get('[data-cy="task-list-component"]').each(($el) => {
       const label = $el.find('[data-cy="task-column-label"]').text().trim();
 
-      if (label === taskColumn) {
+      if (label === taskColumnOne) {
         cy.wrap($el.find('[data-cy="to-add-task"]')).click();
 
         // does the drop down button have the test
-        cy.get('[data-cy="drop-down-label"]').should('have.text', taskColumn);
+        cy.get('[data-cy="drop-down-label"]').should(
+          'have.text',
+          taskColumnOne
+        );
 
         cy.get('[formControlName="title"]').type('Cooking food');
 
@@ -49,7 +68,7 @@ describe('My First Test', () => {
 
         // change status to in progress
         cy.get('[data-cy="drop-down-toggle-button"]').click();
-        cy.get('[data-cy="drop-down-option"]').contains(taskColumn).click();
+        cy.get('[data-cy="drop-down-option"]').contains(taskColumnOne).click();
 
         // create task
         cy.get('[data-cy="create-task"]').click();
