@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center py-5">
     <h1 class="text-slate-900 text-3xl font-extrabold">Ereyomi Board</h1>
     <button
-    id="add_task_status"
+      id="add_task_status"
       type="button"
       class="px-5 py-2 h-[40px] bg-violet-600 text-white rounded-md text-sm flex items-center gap-2 cursor-pointer hover:bg-violet-500"
       (click)="openColumnModal()"
@@ -26,11 +26,24 @@
       Add Task Status
     </button>
   </div>
-  <div class="w-full flex flex-row overflow-auto gap-6">
-    @for(column of storeData(); track column.id) {
-    <app-task-list [taskColumn]="column"></app-task-list>
-    }
-  </div>
+
+  <ng-container *ngIf="storeData().length; else noDataTemplate">
+    <div class="w-full flex flex-row overflow-auto gap-6">
+      @for(column of storeData(); track column.id) {
+      <app-task-list [taskColumn]="column"></app-task-list>
+      }
+    </div>
+  </ng-container>
+  <ng-template #noDataTemplate>
+    <div
+      class="w-full flex flex-col items-center justify-center mt-48 md:mt-80"
+    >
+      <p class="text-9xl text-gray-300 font-extrabold">No data</p>
+      <p class="text-2xl text-gray-300 font-extralight">
+        (Please Add Task Status to be able to create task)
+      </p>
+    </div>
+  </ng-template>
 </div>
 
 @if(openAddColumnModal()) {

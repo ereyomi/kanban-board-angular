@@ -3,11 +3,16 @@
   (click)="openModal()"
 >
   <h1 class="text-sm font-bold">{{ task.title }}</h1>
+  @if (task.subTasks.length > 0) {
   <p class="text-sm text-gray-600">
-    {{ task.subTasks.length }}
+    {{ doneSubTask }} of {{ task.subTasks.length }}
     {{ task.subTasks.length < 2 ? "subtask" : "subtasks" }}
   </p>
+  }
 </div>
 @if(openViewTaskModal()){
-<app-view-task-modal [task]="task" (closeEvent)="closeModal()"></app-view-task-modal>
+<app-view-task-modal
+  [task]="task"
+  (closeEvent)="closeModal()"
+></app-view-task-modal>
 }

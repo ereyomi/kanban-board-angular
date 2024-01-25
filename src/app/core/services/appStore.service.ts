@@ -7,7 +7,7 @@ import { SelectOptionT } from '../../shared/types/Select';
 })
 export class AppStoreService {
   private taskStore = signal<TaskStatusColumnT[]>([
-    {
+   /*  {
       id: 'todo-uuid',
       label: 'Todo',
       tasks: [
@@ -30,7 +30,7 @@ export class AppStoreService {
           ],
         },
       ],
-    },
+    }, */
     /* {
       id: 'in-progress',
       label: 'In Progress',
