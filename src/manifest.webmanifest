@@ -4,7 +4,7 @@
   "description": "Description of your app",
   "icons": [
     {
-      "src": "assets/CIP_pwa_logo_512_512.png",
+      "src": "./assets/CIP_pwa_logo_512_512.png",
       "sizes": "SI2x512",
       "type": "image/png"
     }
