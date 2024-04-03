@@ -18,6 +18,10 @@ export class AppStoreService {
     return this.taskStore.asReadonly();
   }
 
+  setStore(data: TaskStatusColumnT[]) {
+    this.taskStore.update(v => data);
+  }
+
   taskColumnLabelExist(label: string) {
     return this.taskStatusColumns().some(
       (task) => task.label.trim().toLowerCase() === label.trim().toLowerCase()
@@ -31,6 +35,7 @@ export class AppStoreService {
       tasks: [],
     };
     this.taskStore.update((v) => [...v, taskStatusColumnData]);
+    localStorage.setItem('taskStore', JSON.stringify(this.taskStore()));
   }
 
   // Add a new task to a specific task store

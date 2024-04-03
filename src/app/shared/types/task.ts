@@ -24,3 +24,19 @@ export type CreateTask = {
   about: string;
   subTasks: string[];
 }
+
+// delete obj['statusId'];
+
+/*
+type m = Omit<TaskT, 'statusId'>
+
+type p = Pick<TaskT, 'statusId' | 'subTasks'>
+
+
+interface f {
+  title: string;
+}
+interface c extends f  {
+
+}
+ */
