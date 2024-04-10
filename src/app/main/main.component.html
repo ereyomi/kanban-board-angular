@@ -30,7 +30,7 @@
   <ng-container *ngIf="storeData().length; else noDataTemplate">
     <div class="w-full flex flex-row overflow-auto gap-6">
       @for(column of storeData(); track column.id) {
-      <app-task-list [taskColumn]="column"></app-task-list>
+      <app-task-list [taskColumn]="column" (requestDeleteEmitter)="processremove($event)"></app-task-list>
       }
     </div>
   </ng-container>

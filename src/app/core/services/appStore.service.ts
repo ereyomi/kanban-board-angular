@@ -40,11 +40,9 @@ export class AppStoreService {
 
   // Add a new task to a specific task store
   addTaskToStore(statusId: string, newTask: CreateTask): void {
-    console.log('addTaskToStore:::', newTask, statusId, this.taskStore());
     this.taskStore.update((v) =>
       v.map((store) => {
         if (store.id === statusId) {
-          console.log('statusId:::', store.id, statusId, this.taskStore());
           return {
             ...store,
             tasks: [
@@ -66,7 +64,7 @@ export class AppStoreService {
         return store;
       })
     );
-    console.log('taskStore:::', statusId, this.taskStore());
+    localStorage.setItem('taskStore', JSON.stringify(this.taskStore()));
   }
 
   updateTask(statusId: string, pTask: TaskT): void {
@@ -86,6 +84,7 @@ export class AppStoreService {
         return sc;
       })
     );
+    localStorage.setItem('taskStore', JSON.stringify(this.taskStore()));
   }
 
   changeTaskStatus(
@@ -113,5 +112,12 @@ export class AppStoreService {
         })
       );
     }
+    localStorage.setItem('taskStore', JSON.stringify(this.taskStore()));
+  }
+  removeTaskColumn(taslColId: string): void {
+    this.taskStore.update((v) =>
+      v.filter((f) => f.id !== taslColId)
+    );
+    localStorage.setItem('taskStore', JSON.stringify(this.taskStore()));
   }
 }
