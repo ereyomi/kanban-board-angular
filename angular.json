@@ -27,7 +27,9 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/assets/CIP_pwa_logo_192_192.png",
+              "src/assets/CIP_pwa_logo_512_512.png"
             ],
             "styles": [
               "src/styles.scss"

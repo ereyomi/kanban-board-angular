@@ -16,7 +16,6 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     const perstData = localStorage.getItem('taskStore');
-    console.log(perstData);
     this.appServiceStore.setStore(perstData ? JSON.parse(perstData) : []);
   }
 }

@@ -26,4 +26,8 @@ export class MainComponent {
   closeColumnModal() {
     this.openAddColumnModal.set(false);
   }
+
+  processremove(id: string) {
+    this.appServiceStore.removeTaskColumn(id);
+  }
 }
